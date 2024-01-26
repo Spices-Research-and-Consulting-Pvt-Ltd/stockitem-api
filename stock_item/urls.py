@@ -11,5 +11,6 @@ from . import views
 
 urlpatterns = [
     path('api/stockitems/', views.StockList.as_view(), name='stockitem-list-create'),
+    path('api/stockitems/<int:pk>/', views.StockDetail.as_view(), name='stockitem-list-create'),
     # Add more paths for other views if needed
 ]

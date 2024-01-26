@@ -9,3 +9,7 @@ class StockList(generics.ListCreateAPIView):
     queryset = models.StockItem.objects.all()
     serializer_class = serializers.StockItemSerializer
     
+class StockDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.StockItem.objects.all()
+    serializer_class = serializers.StockItemSerializer
+    
