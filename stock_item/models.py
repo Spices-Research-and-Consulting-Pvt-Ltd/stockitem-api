@@ -37,11 +37,13 @@ class StockItem(models.Model):
 	# class Meta:
 	# 	db_table = u'StockItem'
 	
-	# def save(self, *args, **kwargs):
-	# 	if self.unique_id == '' or self.unique_id is None:
-	# 		self.unique_id = ID.createID("ITM", self.tenant_id.tenant_id)
+	def save(self, *args, **kwargs):
+		if self.unique_id == '' or self.unique_id is None:
+			prefix = "STK"
+			count = StockItem.objects.count() + 1
+			self.unique_id = f"{prefix}{count:03d}"
 
-	# 	super().save(*args, **kwargs)
+		super().save(*args, **kwargs)
   
 	def __str__(self):
 		return self.item_name
