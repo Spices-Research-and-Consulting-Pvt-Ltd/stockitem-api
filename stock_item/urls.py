@@ -3,7 +3,10 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register(r'stock', views.StockListViewset, basename='stockitem')
+#the following view consists of views of ViewSet
+router.register(r'stock-viewset', views.StockListViewset, basename='stockitem')
+#the following view consists of views of ModelViewSet
+router.register(r'stock-modelviewset', views.StockModelView, basename='stockitem-model')
 
 # urlpatterns = [
 #     path('api/', include(router.urls)),

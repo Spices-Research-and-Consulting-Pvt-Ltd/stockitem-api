@@ -48,3 +48,8 @@ class StockListViewset(viewsets.ViewSet):
         stock = get_object_or_404(models.StockItem, pk=pk)
         stock.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    
+class StockModelView(viewsets.ModelViewSet):
+    queryset = models.StockItem.objects.all()
+    serializer_class = serializers.StockItemSerializer
