@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework import status
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import models
 from . import serializers
@@ -53,3 +54,18 @@ class StockListViewset(viewsets.ViewSet):
 class StockModelView(viewsets.ModelViewSet):
     queryset = models.StockItem.objects.all()
     serializer_class = serializers.StockItemSerializer
+    
+class StockItemCheckView(APIView):
+    def get(self, request):
+        try:
+            stock_id = request.GET.get('stock_id')
+            stock = models.StockItem.objects.get(id=stock_id)
+            # stock = get_object_or_404(models.StockItem, id=stock_id)
+            if stock:
+                return Response({'exists': True}, status=status.HTTP_200_OK)
+        except models.StockItem.DoesNotExist:
+            # Stock item not found, return false
+            return Response({'exists': False}, status=status.HTTP_404_NOT_FOUND) 
+        except Exception as e:
+            # Handle other exceptions (e.g., database connection error)
+            return Response({'message': 'An error occurred.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

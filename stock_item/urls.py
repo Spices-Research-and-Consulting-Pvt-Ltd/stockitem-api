@@ -15,6 +15,8 @@ router.register(r'stock-modelviewset', views.StockModelView, basename='stockitem
 urlpatterns = [
     path('api/stockitems/', views.StockList.as_view(), name='stockitem-list-create'),
     path('api/stockitems/<int:pk>/', views.StockDetail.as_view(), name='stockitem-list-create'),
+    
+    path('stock-item-check/', views.StockItemCheckView.as_view(), name='stock_check'),
     # Add more paths for other views if needed
     path('' ,include(router.urls)),
 ]
