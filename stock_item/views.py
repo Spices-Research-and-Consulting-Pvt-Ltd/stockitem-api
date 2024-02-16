@@ -69,3 +69,17 @@ class StockItemCheckView(APIView):
         except Exception as e:
             # Handle other exceptions (e.g., database connection error)
             return Response({'message': 'An error occurred.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+class StockItemListView(APIView):
+    def get(self, request):
+        # Extract item IDs to exclude from request query parameters
+        excluded_item_ids = request.query_params.getlist('stock_ids[]', [])
+        
+        # Get all StockItems queryset excluding the specified item IDs
+        queryset = models.StockItem.objects.exclude(id__in=excluded_item_ids)
+        
+        # Initialize serializer with queryset
+        serializer = serializers.StockItemFrontEndSerializer(queryset, many=True)
+        
+        return Response(serializer.data)
