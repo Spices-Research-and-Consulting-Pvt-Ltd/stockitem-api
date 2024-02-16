@@ -1,0 +1,7 @@
+__pycache__/
+env
+.vs
+db.sqlite3
+docs/
+.scannerwork
+.env

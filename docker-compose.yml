@@ -1,0 +1,29 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: PI-API
+    mem_limit: 256m
+    environment:
+    - SERVER_NAME=${SERVER_NAME}
+    - SERVER_ALIAS=${SERVER_ALIAS}
+    - DJANGO_DB_NAME=${STOCK_ITEM}  
+    - DJANGO_DB_PASSWORD=${DJANGO_DB_PASSWORD}
+    - DJANGO_DB_HOST=${DJANGO_DB_HOST}
+    - DOMAIN_NAME=${DOMAIN_NAME}
+    - DEBUG=${DEBUG}
+    - PRODUCTION=${PRODUCTION}
+    - SECRET_KEY=${SECRET_KEY}
+    - DB_USER=${DB_USER}
+
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+    volumes:
+      - media_volume:/var/www/html/app/media:rw
+    ports: 
+      - "8022:80"
+
+volumes:
+  media_volume:
+    external: true
